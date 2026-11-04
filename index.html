@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8b35f5">
+    <title>Expense Tracker Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">₹</div>
+            <h2>Expense<span>Flow</span></h2>
+        </div>
+
+        <p class="menu-label">MENU</p>
+
+        <nav class="nav-menu">
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="transactions">
+                <span class="nav-icon">⇄</span>
+                <span>Transactions</span>
+            </button>
+
+            <button class="nav-item" data-page="analytics">
+                <span class="nav-icon">▥</span>
+                <span>Analytics</span>
+            </button>
+
+            <button class="nav-item" data-page="budgets">
+                <span class="nav-icon">◷</span>
+                <span>Budgets</span>
+            </button>
+
+            <button class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <h4>Need some help?</h4>
+                <p>Manage your money smarter with ExpenseFlow.</p>
+                <button onclick="alert('Welcome to ExpenseFlow!')">
+                    Get Help
+                </button>
+            </div>
+
+            <button class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Log Out</span>
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="welcome">
+                <h1>Good Morning ☀️</h1>
+                <p id="currentDate">Welcome to your expense dashboard</p>
+            </div>
+
+            <div class="header-right">
+                <button class="icon-button" aria-label="Notifications">
+                    ♧
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div class="profile-info">
+                        <h4>My Account</h4>
+                        <p>Personal Account</p>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- BALANCE CARDS -->
+        <section class="balance-grid">
+
+            <article class="balance-card primary">
+                <div class="card-top">
+                    <span class="card-label">Available Balance</span>
+                    <div class="card-symbol">₹</div>
+                </div>
+
+                <div class="card-amount" id="balance">₹0.00</div>
+                <div class="card-footer">Your current available balance</div>
+            </article>
+
+            <article class="balance-card">
+                <div class="card-top">
+                    <span class="card-label">Total Income</span>
+                    <div class="card-symbol">↗</div>
+                </div>
+
+                <div class="card-amount" id="income">₹0.00</div>
+                <div class="card-footer">Total money received</div>
+            </article>
+
+            <article class="balance-card orange">
+                <div class="card-top">
+                    <span class="card-label">Total Expenses</span>
+                    <div class="card-symbol">↘</div>
+                </div>
+
+                <div class="card-amount" id="expense">₹0.00</div>
+                <div class="card-footer">Total money spent</div>
+            </article>
+
+        </section>
+
+        <!-- CHARTS -->
+        <section class="content-grid">
+
+            <!-- SPENDING CHART -->
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h2 class="panel-title">Spending Overview</h2>
+                        <p class="panel-subtitle">Track your income and expenses</p>
+                    </div>
+
+                    <select class="select" id="chartPeriod">
+                        <option value="week">This Week</option>
+                        <option value="month" selected>This Month</option>
+                    </select>
+                </div>
+
+                <div class="chart-container">
+
+                    <svg class="chart" viewBox="0 0 500 210"
+                         preserveAspectRatio="none">
+
+                        <line x1="35" y1="20" x2="490" y2="20"
+                              class="chart-grid"/>
+                        <line x1="35" y1="65" x2="490" y2="65"
+                              class="chart-grid"/>
+                        <line x1="35" y1="110" x2="490" y2="110"
+                              class="chart-grid"/>
+                        <line x1="35" y1="155" x2="490" y2="155"
+                              class="chart-grid"/>
+
+                        <text x="2" y="23" class="chart-label">₹3k</text>
+                        <text x="2" y="68" class="chart-label">₹2k</text>
+                        <text x="2" y="113" class="chart-label">₹1k</text>
+                        <text x="2" y="158" class="chart-label">₹0</text>
+
+                        <g id="chartBars">
+                            <rect x="65" y="155" width="13" height="0" class="chart-bar"/>
+                            <rect x="82" y="155" width="13" height="0" class="chart-bar secondary"/>
+
+                            <rect x="150" y="155" width="13" height="0" class="chart-bar"/>
+                            <rect x="167" y="155" width="13" height="0" class="chart-bar secondary"/>
+
+                            <rect x="235" y="155" width="13" height="0" class="chart-bar"/>
+                            <rect x="252" y="155" width="13" height="0" class="chart-bar secondary"/>
+
+                            <rect x="320" y="155" width="13" height="0" class="chart-bar"/>
+                            <rect x="337" y="155" width="13" height="0" class="chart-bar secondary"/>
+
+                            <rect x="405" y="155" width="13" height="0" class="chart-bar"/>
+                            <rect x="422" y="155" width="13" height="0" class="chart-bar secondary"/>
+                        </g>
+
+                        <text x="65" y="178" class="chart-label">Week 1</text>
+                        <text x="150" y="178" class="chart-label">Week 2</text>
+                        <text x="235" y="178" class="chart-label">Week 3</text>
+                        <text x="320" y="178" class="chart-label">Week 4</text>
+                        <text x="405" y="178" class="chart-label">Week 5</text>
+
+                    </svg>
+
+                </div>
+
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot"></span>
+                        Income
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-dot orange"></span>
+                        Expenses
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CATEGORY BREAKDOWN -->
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h2 class="panel-title">Spending Breakdown</h2>
+                        <p class="panel-subtitle">Expenses by category</p>
+                    </div>
+                </div>
+
+                <div class="category-content">
+
+                    <div class="donut-chart" id="donutChart">
+                        <div class="category-center">
+                            <strong id="donutTotal">₹0</strong>
+                            <span>Total Spent</span>
+                        </div>
+                    </div>
+
+                    <div class="category-list" id="categoryList">
+                        <div class="category-item">
+                            <span class="category-name">
+                                <span class="category-color" style="background:#8738f5"></span>
+                                Food
+                            </span>
+                            <span>0%</span>
+                        </div>
+
+                        <div class="category-item">
+                            <span class="category-name">
+                                <span class="category-color" style="background:#ff7048"></span>
+                                Shopping
+                            </span>
+                            <span>0%</span>
+                        </div>
+
+                        <div class="category-item">
+                            <span class="category-name">
+                                <span class="category-color" style="background:#20b981"></span>
+                                Travel
+                            </span>
+                            <span>0%</span>
+                        </div>
+
+                        <div class="category-item">
+                            <span class="category-name">
+                                <span class="category-color" style="background:#4bafff"></span>
+                                Others
+                            </span>
+                            <span>0%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- RECENT TRANSACTIONS -->
+        <section class="panel transactions-panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">Recent Transactions</h2>
+                    <p class="panel-subtitle">Your latest financial activities</p>
+                </div>
+
+                <button class="select" onclick="openModal()">
+                    + Add New
+                </button>
+            </div>
+
+            <div class="transaction-list" id="transactionList">
+
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-state-icon">💳</div>
+                    <h3>No transactions yet</h3>
+                    <p>Your transactions will appear here when you add them.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BOTTOM GRID -->
+        <section class="bottom-grid">
+
+            <!-- BUDGET -->
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h2 class="panel-title">Monthly Budget</h2>
+                        <p class="panel-subtitle">Monitor your spending limits</p>
+                    </div>
+
+                    <span style="font-size:18px;color:var(--primary)">◷</span>
+                </div>
+
+                <div class="budget-row">
+                    <div class="budget-info">
+                        <strong>Monthly Expenses</strong>
+                        <span id="budgetText">₹0 / ₹0</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar" id="budgetProgress"></div>
+                    </div>
+                </div>
+
+                <div style="font-size:10px;color:var(--muted)">
+                    Set a budget to monitor your monthly spending.
+                </div>
+
+            </article>
+
+            <!-- QUICK ACTIONS -->
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h2 class="panel-title">Quick Actions</h2>
+                        <p class="panel-subtitle">Manage your finances easily</p>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+
+                    <button class="action-card" onclick="openModal('expense')">
+                        <span>💸</span>
+                        <h4>Add Expense</h4>
+                        <p>Record your spending</p>
+                    </button>
+
+                    <button class="action-card" onclick="openModal('income')">
+                        <span>💰</span>
+                        <h4>Add Income</h4>
+                        <p>Record money received</p>
+                    </button>
+
+                    <button class="action-card" onclick="setBudget()">
+                        <span>🎯</span>
+                        <h4>Set Budget</h4>
+                        <p>Manage spending limits</p>
+                    </button>
+
+                    <button class="action-card" onclick="exportCSV()">
+                        <span>📊</span>
+                        <h4>Export Data</h4>
+                        <p>Download transactions</p>
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav class="mobile-nav">
+
+    <button class="active" data-page="dashboard">
+        <span>⌂</span>
+        Home
+    </button>
+
+    <button data-page="transactions">
+        <span>⇄</span>
+        Search
+    </button>
+
+    <button data-page="analytics">
+        <span>▥</span>
+        Analytics
+    </button>
+
+    <button data-page="settings">
+        <span>⚙</span>
+        Settings
+    </button>
+
+</nav>
+
+<button class="floating-add" onclick="openModal()"
+        aria-label="Add transaction">+</button>
+
+<!-- ADD TRANSACTION MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Add Transaction</h2>
+            <button class="close-button" onclick="closeModal()"
+                    aria-label="Close">&times;</button>
+        </div>
+
+        <form id="transactionForm">
+
+            <div class="form-group">
+                <label for="transactionType">Transaction Type</label>
+                <select class="form-control" id="transactionType" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionTitle">Title</label>
+                <input class="form-control" type="text"
+                       id="transactionTitle"
+                       placeholder="e.g. Grocery Shopping" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionAmount">Amount (₹)</label>
+                <input class="form-control" type="number"
+                       id="transactionAmount"
+                       placeholder="Enter amount"
+                       min="0.01" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionCategory">Category</label>
+                <select class="form-control" id="transactionCategory" required>
+                    <option value="Food">Food</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Health">Health</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionDate">Date</label>
+                <input class="form-control" type="date"
+                       id="transactionDate" required>
+            </div>
+
+            <button type="submit" class="submit-button">
+                Save Transaction
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
